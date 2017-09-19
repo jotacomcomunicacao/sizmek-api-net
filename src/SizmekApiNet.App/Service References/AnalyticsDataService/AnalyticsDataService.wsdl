@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://api.eyeblaster.com/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AnalyticsDataService" targetNamespace="http://api.eyeblaster.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="AnalyticsDataService_Binding_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://api.eyeblaster.com/message">
+      <xsd:element name="InitiateAnalyticsReportJobRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q1="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="AnalyticsReport" nillable="true" type="q1:ReportBase" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UserSecurityToken" nillable="true" type="xsd:string" />
+      <xsd:element name="InitiateAnalyticsReportJobResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q2="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="AnalyticsReport" nillable="true" type="q2:ReportBase" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAnalyticsReportJobStatusRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q3="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="AnalyticsReport" nillable="true" type="q3:ReportBase" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAnalyticsReportJobStatusResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q4="http://api.eyeblaster.com/V2/DataContracts" minOccurs="0" name="Status" type="q4:JobStatus" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAnalyticsReportAsURLRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q5="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="AnalyticsReport" nillable="true" type="q5:ReportBase" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAnalyticsReportAsURLResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="URL" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteAnalyticsReportRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q6="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="AnalyticsReport" nillable="true" type="q6:ReportBase" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetReportsLastAggregationTimeRequest">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetReportsLastAggregationTimeResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q7="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="DateTime" nillable="true" type="q7:APIDateTime" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xsd:schema xmlns:tns="http://api.eyeblaster.com/V1/DataContracts" elementFormDefault="qualified" targetNamespace="http://api.eyeblaster.com/V1/DataContracts">
+      <xsd:complexType name="ReportBase">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="JobID" type="xsd:long" />
+          <xsd:element minOccurs="0" name="UniqueName" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ReportBase" nillable="true" type="tns:ReportBase" />
+      <xsd:complexType name="DynamicPerformanceReport">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ReportBase">
+            <xsd:sequence>
+              <xsd:element name="AdID" nillable="true" type="xsd:string" />
+              <xsd:element name="CampaignID" nillable="true" type="xsd:string" />
+              <xsd:element name="ConversionAttributionModel" nillable="true" type="xsd:int" />
+              <xsd:element name="ConversionTagsIDsFilters" nillable="true" type="xsd:string" />
+              <xsd:element name="CookieWindowClicks" nillable="true" type="xsd:int" />
+              <xsd:element name="CookieWindowImpressions" nillable="true" type="xsd:int" />
+              <xsd:element name="CustomFilter1" nillable="true" type="xsd:string" />
+              <xsd:element name="CustomFilter2" nillable="true" type="xsd:string" />
+              <xsd:element name="CustomFilter3" nillable="true" type="xsd:string" />
+              <xsd:element name="CustomFilter4" nillable="true" type="xsd:string" />
+              <xsd:element name="CustomFilter5" nillable="true" type="xsd:string" />
+              <xsd:element name="CustomFilter6" nillable="true" type="xsd:string" />
+              <xsd:element name="CustomizationParameter" type="xsd:int" />
+              <xsd:element name="DataLevelID" nillable="true" type="xsd:int" />
+              <xsd:element name="IsIgnoreAssignmentToCampaign" nillable="true" type="xsd:boolean" />
+              <xsd:element name="PackageID" nillable="true" type="xsd:string" />
+              <xsd:element name="PlacementID" nillable="true" type="xsd:string" />
+              <xsd:element name="ReporEndtDate" nillable="true" type="tns:APIDateTime" />
+              <xsd:element name="ReportStartDate" nillable="true" type="tns:APIDateTime" />
+              <xsd:element name="SiteID" nillable="true" type="xsd:string" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="DynamicPerformanceReport" nillable="true" type="tns:DynamicPerformanceReport" />
+      <xsd:complexType name="APIDateTime">
+        <xsd:sequence>
+          <xsd:element name="Year" type="xsd:int" />
+          <xsd:element name="Month" type="xsd:int" />
+          <xsd:element name="Day" type="xsd:int" />
+          <xsd:element name="Hour" type="xsd:int" />
+          <xsd:element name="Minute" type="xsd:int" />
+          <xsd:element name="Second" type="xsd:int" />
+          <xsd:element minOccurs="0" name="TimeZoneID" nillable="true" type="tns:TimeZone" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="APIDateTime" nillable="true" type="tns:APIDateTime" />
+      <xsd:simpleType name="TimeZone">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="GMT_Minus_12">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_11">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_10">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_9">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_8">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_7">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_6">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_5">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_4">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_3">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_2">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Minus_1">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_1">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_2">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_3">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_4">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_5">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_6">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_7">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_8">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_9">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">22</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_10">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">23</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_11">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">24</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+          <xsd:enumeration value="GMT_Plus_12">
+            <xsd:annotation>
+              <xsd:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">25</EnumerationValue>
+              </xsd:appinfo>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="TimeZone" nillable="true" type="tns:TimeZone" />
+      <xsd:complexType name="PerformanceReport">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ReportBase">
+            <xsd:sequence>
+              <xsd:element name="CampaignID" type="xsd:int" />
+              <xsd:element name="ConversionAttributionModel" nillable="true" type="xsd:int" />
+              <xsd:element name="ConversionTagsIDsFilters" nillable="true" type="xsd:string" />
+              <xsd:element name="CookieWindowClicks" nillable="true" type="xsd:int" />
+              <xsd:element name="CookieWindowImpressions" nillable="true" type="xsd:int" />
+              <xsd:element name="DataLevelID" nillable="true" type="xsd:int" />
+              <xsd:element name="IsIgnoreAssignmentToCampaign" nillable="true" type="xsd:boolean" />
+              <xsd:element name="ReporEndtDate" nillable="true" type="tns:APIDateTime" />
+              <xsd:element name="ReportStartDate" nillable="true" type="tns:APIDateTime" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:element name="PerformanceReport" nillable="true" type="tns:PerformanceReport" />
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xsd:schema xmlns:tns="http://api.eyeblaster.com/V2/DataContracts" elementFormDefault="qualified" targetNamespace="http://api.eyeblaster.com/V2/DataContracts">
+      <xsd:simpleType name="JobStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Completed" />
+          <xsd:enumeration value="In Progress" />
+          <xsd:enumeration value="Failed" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="JobStatus" nillable="true" type="tns:JobStatus" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InitiateAnalyticsReportJobRequest">
+    <wsdl:part xmlns:q8="http://api.eyeblaster.com/message" name="parameters" element="q8:InitiateAnalyticsReportJobRequest" />
+  </wsdl:message>
+  <wsdl:message name="InitiateAnalyticsReportJobRequest_Headers">
+    <wsdl:part xmlns:q9="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q9:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="InitiateAnalyticsReportJobResponse">
+    <wsdl:part xmlns:q10="http://api.eyeblaster.com/message" name="parameters" element="q10:InitiateAnalyticsReportJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAnalyticsReportJobStatusRequest">
+    <wsdl:part xmlns:q11="http://api.eyeblaster.com/message" name="parameters" element="q11:GetAnalyticsReportJobStatusRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetAnalyticsReportJobStatusRequest_Headers">
+    <wsdl:part xmlns:q12="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q12:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAnalyticsReportJobStatusResponse">
+    <wsdl:part xmlns:q13="http://api.eyeblaster.com/message" name="parameters" element="q13:GetAnalyticsReportJobStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAnalyticsReportAsURLRequest">
+    <wsdl:part xmlns:q14="http://api.eyeblaster.com/message" name="parameters" element="q14:GetAnalyticsReportAsURLRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetAnalyticsReportAsURLRequest_Headers">
+    <wsdl:part xmlns:q15="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q15:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAnalyticsReportAsURLResponse">
+    <wsdl:part xmlns:q16="http://api.eyeblaster.com/message" name="parameters" element="q16:GetAnalyticsReportAsURLResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAnalyticsReportRequest">
+    <wsdl:part xmlns:q17="http://api.eyeblaster.com/message" name="parameters" element="q17:DeleteAnalyticsReportRequest" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAnalyticsReportRequest_Headers">
+    <wsdl:part xmlns:q18="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q18:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="IAnalyticsDataService_DeleteReport_OutputMessage" />
+  <wsdl:message name="GetReportsLastAggregationTimeRequest">
+    <wsdl:part xmlns:q19="http://api.eyeblaster.com/message" name="parameters" element="q19:GetReportsLastAggregationTimeRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetReportsLastAggregationTimeRequest_Headers">
+    <wsdl:part xmlns:q20="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q20:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetReportsLastAggregationTimeResponse">
+    <wsdl:part xmlns:q21="http://api.eyeblaster.com/message" name="parameters" element="q21:GetReportsLastAggregationTimeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAnalyticsDataService">
+    <wsdl:operation name="InitiateReportJob">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/InitiateReportJob" name="InitiateAnalyticsReportJobRequest" message="tns:InitiateAnalyticsReportJobRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/InitiateReportJobResponse" name="InitiateAnalyticsReportJobResponse" message="tns:InitiateAnalyticsReportJobResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReportJobStatus">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/GetReportJobStatus" name="GetAnalyticsReportJobStatusRequest" message="tns:GetAnalyticsReportJobStatusRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/GetReportJobStatusResponse" name="GetAnalyticsReportJobStatusResponse" message="tns:GetAnalyticsReportJobStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReportAsURL">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/GetReportAsURL" name="GetAnalyticsReportAsURLRequest" message="tns:GetAnalyticsReportAsURLRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/GetReportAsURLResponse" name="GetAnalyticsReportAsURLResponse" message="tns:GetAnalyticsReportAsURLResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReport">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/DeleteReport" name="DeleteAnalyticsReportRequest" message="tns:DeleteAnalyticsReportRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/DeleteReportResponse" message="tns:IAnalyticsDataService_DeleteReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReportsLastAggregationTime">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/GetReportsLastAggregationTime" name="GetReportsLastAggregationTimeRequest" message="tns:GetReportsLastAggregationTimeRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/IAnalyticsDataService/GetReportsLastAggregationTimeResponse" name="GetReportsLastAggregationTimeResponse" message="tns:GetReportsLastAggregationTimeResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AnalyticsDataService_Binding" type="tns:IAnalyticsDataService">
+    <wsp:PolicyReference URI="#AnalyticsDataService_Binding_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InitiateReportJob">
+      <soap:operation soapAction="http://api.eyeblaster.com/IAnalyticsDataService/InitiateReportJob" style="document" />
+      <wsdl:input name="InitiateAnalyticsReportJobRequest">
+        <soap:header message="tns:InitiateAnalyticsReportJobRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="InitiateAnalyticsReportJobResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportJobStatus">
+      <soap:operation soapAction="http://api.eyeblaster.com/IAnalyticsDataService/GetReportJobStatus" style="document" />
+      <wsdl:input name="GetAnalyticsReportJobStatusRequest">
+        <soap:header message="tns:GetAnalyticsReportJobStatusRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAnalyticsReportJobStatusResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportAsURL">
+      <soap:operation soapAction="http://api.eyeblaster.com/IAnalyticsDataService/GetReportAsURL" style="document" />
+      <wsdl:input name="GetAnalyticsReportAsURLRequest">
+        <soap:header message="tns:GetAnalyticsReportAsURLRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAnalyticsReportAsURLResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReport">
+      <soap:operation soapAction="http://api.eyeblaster.com/IAnalyticsDataService/DeleteReport" style="document" />
+      <wsdl:input name="DeleteAnalyticsReportRequest">
+        <soap:header message="tns:DeleteAnalyticsReportRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportsLastAggregationTime">
+      <soap:operation soapAction="http://api.eyeblaster.com/IAnalyticsDataService/GetReportsLastAggregationTime" style="document" />
+      <wsdl:input name="GetReportsLastAggregationTimeRequest">
+        <soap:header message="tns:GetReportsLastAggregationTimeRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetReportsLastAggregationTimeResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AnalyticsDataService">
+    <wsdl:port name="AnalyticsDataService_Binding" binding="tns:AnalyticsDataService_Binding">
+      <soap:address location="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/AnalyticsDataService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
