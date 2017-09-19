@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="b0fbd82f-323f-4cdb-abed-3143efaa39a5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="33b9c7f3-aa98-4228-b58d-0b6b4263f07f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>false</GenerateTaskBasedAsynchronousMethod>
@@ -18,9 +18,9 @@
     <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/AnalyticsDataService.svc" Protocol="https" SourceId="1" />
+    <MetadataSource Address="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/CampaignService.svc" Protocol="https" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="AnalyticsDataService.wsdl" MetadataType="Wsdl" ID="225165fe-2a99-43d4-a2d4-ecb12c29c364" SourceId="1" SourceUrl="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/AnalyticsDataService.svc?wsdl" />
+    <MetadataFile FileName="CampaignService.wsdl" MetadataType="Wsdl" ID="d2d922ec-6a97-4407-8347-444e44dbfa8e" SourceId="1" SourceUrl="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/CampaignService.svc?wsdl" />
   </Metadata>
 </ReferenceGroup>

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SizmekApiNet.App.AdvertiserService;
-using SizmekApiNet.App.AuthenticationService;
-using SizmekApiNet.App.AnalyticsDataService;
+
+using api.eyeblaster.com.V1.DataContracts;
+using api.eyeblaster.com.V2.DataContracts;
+using api.eyeblaster.com.message;
 
 namespace SizmekApiNet.App
 {
@@ -13,7 +14,7 @@ namespace SizmekApiNet.App
         static void Main(string[] args)
         {
             var authenticationServiceClient = new AuthenticationServiceClient();
-            var authToken = authenticationServiceClient.ClientLogin("", "", "");
+            var authToken = authenticationServiceClient.ClientLogin(Environment.GetEnvironmentVariable("SIZMEK_USERNAME"), Environment.GetEnvironmentVariable("SIZMEK_PASSWORD"), Environment.GetEnvironmentVariable("SIZMEK_APP_KEY"));
 
             var advertiserService = new AdvertiserServiceClient();
 
@@ -23,22 +24,44 @@ namespace SizmekApiNet.App
                 PageSize = 99999
             };
 
-            var totalCount = 0;
-
-            var advertisers = advertiserService.GetAdvertisers(authToken, null, paging, true, out totalCount);
+            var advertisers = advertiserService.GetAdvertisers(null, paging, true);
             
-            if (totalCount > 0)
+            foreach (var advertiser in advertisers)
             {
-                var conversionTags = advertiserService.GetConversionTags(authToken, (uint) advertisers[0].ID, null, paging, true, out totalCount);
+                var campaignService = new CampaignServiceClient();
 
-                if (totalCount > 0)
-                {
-                    var analyticsDataService = new AnalyticsDataServiceClient();
+                var campaigns = campaignService.GetCampaigns(null, paging, true);
 
-                    var conversionTagsFiltered = conversionTags.ToList()
-                                                .Where(o => o.ReportingName == "")
-                                                .ToList();
-                }
+				foreach (var campaign in campaigns)
+				{
+					var conversionTagFilters = new List<ConversionTagsFilter>();
+
+					conversionTagFilters.Add(new ConversionTagCampaignFilter()
+					{
+                        CampaignID = campaign.ID
+					});
+
+                    var conversionTags = advertiserService.GetConversionTags((uint)advertiser.ID, conversionTagFilters, paging, true);
+
+					if (conversionTags.Count > 0)
+					{
+						var analyticsDataService = new AnalyticsDataServiceClient();
+						var report = new PerformanceReport();
+
+                        report.CampaignID = campaign.ID;
+                        report.ReportStartDate = campaign.CampaignExtendedInfo.StartDate;
+                        report.ReporEndtDate = campaign.CampaignExtendedInfo.EndDate;
+
+                        analyticsDataService.InitiateReportJob(report);
+
+                        var reportStatus = analyticsDataService.GetReportJobStatus(report);
+
+                        while (reportStatus != JobStatus.Completed)
+                            reportStatus = analyticsDataService.GetReportJobStatus(report);
+
+                        var reportUrl = analyticsDataService.GetReportAsURL(report);
+					}
+				}
             }
         }
     }

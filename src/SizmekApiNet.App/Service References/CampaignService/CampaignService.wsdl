@@ -1,0 +1,2503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://api.eyeblaster.com/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="CampaignService" targetNamespace="http://api.eyeblaster.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="CampaignService_Binding_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://api.eyeblaster.com/message">
+      <xsd:element name="GetCampaignsBasicInfoRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q1="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignsFilter" nillable="true" type="q1:ArrayOfCampaignServiceFilter" />
+            <xsd:element xmlns:q2="http://api.eyeblaster.com/message" minOccurs="0" name="Paging" nillable="true" type="q2:ListPaging" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="APIFilterBase">
+        <xsd:sequence />
+      </xsd:complexType>
+      <xsd:element xmlns:q3="http://api.eyeblaster.com/message" name="APIFilterBase" nillable="true" type="q3:APIFilterBase" />
+      <xsd:complexType name="ListPaging">
+        <xsd:sequence>
+          <xsd:element name="PageIndex" type="xsd:int" />
+          <xsd:element name="PageSize" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element xmlns:q4="http://api.eyeblaster.com/message" name="ListPaging" nillable="true" type="q4:ListPaging" />
+      <xsd:element name="UserSecurityToken" nillable="true" type="xsd:string" />
+      <xsd:element name="GetCampaignsBasicInfoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q5="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Info" nillable="true" type="q5:ArrayOfBasicInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q6="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignsFilter" nillable="true" type="q6:ArrayOfCampaignServiceFilter" />
+            <xsd:element xmlns:q7="http://api.eyeblaster.com/message" minOccurs="0" name="Paging" nillable="true" type="q7:ListPaging" />
+            <xsd:element minOccurs="0" name="ShowCampaignExtendedInfo" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q8="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Campaigns" nillable="true" type="q8:ArrayOfCampaignInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateCampaignRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q9="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Campaign" nillable="true" type="q9:CampaignInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q10="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Campaign" nillable="true" type="q10:CampaignInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateCampaignRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q11="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Campaign" nillable="true" type="q11:CampaignInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q12="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Campaign" nillable="true" type="q12:CampaignInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteCampaignRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DeleteCampaignsResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTargetRegionRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q13="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="SegmentationType" type="q13:SegmentationTypes" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetTargetRegionResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q14="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="TargetRegionTree" nillable="true" type="q14:ArrayOfTargetRegionInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EnableAutomaticOptimizationRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+            <xsd:element minOccurs="0" name="ConversionID" type="xsd:int" />
+            <xsd:element xmlns:q15="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="OptimizationMethod" type="q15:OptimizationMethod" />
+            <xsd:element xmlns:q16="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="OptimizationMetric" type="q16:MetricTypes" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="EnableAutomaticOptimizationResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GenerateIOForCampaignRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GenerateIOForCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignInteractionsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignInteractionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q17="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignInteractions" nillable="true" type="q17:ArrayOfCampaignInteractionInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateCampaignInteractionsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q18="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignInteractions" nillable="true" type="q18:ArrayOfCampaignInteractionInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="UpdateCampaignInteractionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q19="http://api.eyeblaster.com/message" minOccurs="0" name="BatchActionErrors" nillable="true" type="q19:ArrayOfBatchActionError" />
+            <xsd:element xmlns:q20="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignInteractions" nillable="true" type="q20:ArrayOfCampaignInteractionInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfBatchActionError">
+        <xsd:sequence>
+          <xsd:element xmlns:q21="http://api.eyeblaster.com/message" minOccurs="0" maxOccurs="unbounded" name="BatchActionError" nillable="true" type="q21:BatchActionError" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element xmlns:q22="http://api.eyeblaster.com/message" name="ArrayOfBatchActionError" nillable="true" type="q22:ArrayOfBatchActionError" />
+      <xsd:complexType name="BatchActionError">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="FaultCode" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="FaultDescription" nillable="true" type="xsd:string" />
+          <xsd:element name="OriginalIndex" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element xmlns:q23="http://api.eyeblaster.com/message" name="BatchActionError" nillable="true" type="q23:BatchActionError" />
+      <xsd:element name="GetInteractionRelatedAdsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q24="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignInteraction" nillable="true" type="q24:CampaignInteractionInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetInteractionRelatedAdsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q25="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="RelatedAds" nillable="true" type="q25:ArrayOfBasicInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAdSnapRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdIDs" nillable="true" type="q26:ArrayOfint" />
+            <xsd:element xmlns:q27="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="AdSnapImage" type="q27:AdSnapImages" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAdSnapResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q28="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="AdSnaps" nillable="true" type="q28:ArrayOfAdSnapInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetMonitorDeliveryRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+            <xsd:element xmlns:q29="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="MonitorDeliveryFilter" nillable="true" type="q29:ArrayOfMonitorDeliveryFilter" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetMonitorDeliveryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q30="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Placements" nillable="true" type="q30:ArrayOfMonitorDeliveryInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PublishCampaignRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q31="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="PublishCampaignData" nillable="true" type="q31:PublishCampaignInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="PublishCampaignResponse">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignSitesRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignSitesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q32="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignSites" nillable="true" type="q32:ArrayOfBasicInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateContactRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q33="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Contact" nillable="true" type="q33:ContactInfo" />
+            <xsd:element xmlns:q34="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Role" type="q34:ContactRoles" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateContactResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q35="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Contact" nillable="true" type="q35:ContactInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetContactRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="ContactID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetContactResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q36="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Contact" nillable="true" type="q36:ContactInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAgencyContactsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="AgencyID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAgencyContactsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q37="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Contacts" nillable="true" type="q37:ArrayOfContactInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCreativeShopRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CreativeShopID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCreativeShopResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q38="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Contacts" nillable="true" type="q38:ArrayOfContactInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSiteContactsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="SiteID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSiteContactsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q39="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Contacts" nillable="true" type="q39:ArrayOfContactInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignSiteContactsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+            <xsd:element minOccurs="0" name="SiteID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetMarketsRequest">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetMarketsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q40="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Markets" nillable="true" type="q40:ArrayOfBasicInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetOfficesRequest">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetOfficesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q41="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Offices" nillable="true" type="q41:ArrayOfBasicInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSitesRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q42="http://api.eyeblaster.com/message" minOccurs="0" name="Paging" nillable="true" type="q42:ListPaging" />
+            <xsd:element xmlns:q43="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="SitesFilter" nillable="true" type="q43:ArrayOfGetSitesFilter" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetSitesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q44="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Sites" nillable="true" type="q44:ArrayOfBasicInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAgenciesRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q45="http://api.eyeblaster.com/message" minOccurs="0" name="Paging" nillable="true" type="q45:ListPaging" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAgenciesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q46="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="Agencies" nillable="true" type="q46:ArrayOfBasicInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCreativeShopsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q47="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CreativeShopsFilter" nillable="true" type="q47:ArrayOfGetCreativeShopsFilter" />
+            <xsd:element xmlns:q48="http://api.eyeblaster.com/message" minOccurs="0" name="Paging" nillable="true" type="q48:ListPaging" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCreativeShopsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q49="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CreativeShops" nillable="true" type="q49:ArrayOfBasicInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignHistoryRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+            <xsd:element xmlns:q50="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="HistoryFilter" nillable="true" type="q50:ArrayOfGetHistoryFilter" />
+            <xsd:element xmlns:q51="http://api.eyeblaster.com/message" minOccurs="0" name="Paging" nillable="true" type="q51:ListPaging" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHistoryResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q52="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="HistoryLogs" nillable="true" type="q52:ArrayOfHistoryInfo" />
+            <xsd:element minOccurs="0" name="TotalCount" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHistoryObjectsRequest">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHistoryObjectsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q53="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="HistoryObjects" nillable="true" type="q53:ArrayOfBasicInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHistoryActionsRequest">
+        <xsd:complexType>
+          <xsd:sequence />
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetHistoryActionsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q54="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="HistoryActions" nillable="true" type="q54:ArrayOfBasicInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignEffectiveSettingsRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="Token" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCampaignEffectiveSettingsResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element xmlns:q55="http://api.eyeblaster.com/V1/DataContracts" minOccurs="0" name="CampaignEffectiveSettings" nillable="true" type="q55:CampaignEffectiveSettingsInfo" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CreateCampaignCustomLogRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="Activity" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CampaignID" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://api.eyeblaster.com/V1/DataContracts" elementFormDefault="qualified" targetNamespace="http://api.eyeblaster.com/V1/DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfCampaignServiceFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CampaignServiceFilter" nillable="true" type="tns:CampaignServiceFilter" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCampaignServiceFilter" nillable="true" type="tns:ArrayOfCampaignServiceFilter" />
+      <xs:complexType name="CampaignServiceFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q56="http://api.eyeblaster.com/message" base="q56:APIFilterBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignServiceFilter" nillable="true" type="tns:CampaignServiceFilter" />
+      <xs:complexType name="CampaignMinActualImpressionsFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="ActualImpressions" type="xs:unsignedInt" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignMinActualImpressionsFilter" nillable="true" type="tns:CampaignMinActualImpressionsFilter" />
+      <xs:complexType name="CampaignNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="CampaignName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignNameFilter" nillable="true" type="tns:CampaignNameFilter" />
+      <xs:complexType name="CampaignEndDateFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="FromDate" nillable="true" type="tns:APIDateTime" />
+              <xs:element name="ToDate" nillable="true" type="tns:APIDateTime" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignEndDateFilter" nillable="true" type="tns:CampaignEndDateFilter" />
+      <xs:complexType name="APIDateTime">
+        <xs:sequence>
+          <xs:element name="Year" type="xs:int" />
+          <xs:element name="Month" type="xs:int" />
+          <xs:element name="Day" type="xs:int" />
+          <xs:element name="Hour" type="xs:int" />
+          <xs:element name="Minute" type="xs:int" />
+          <xs:element name="Second" type="xs:int" />
+          <xs:element minOccurs="0" name="TimeZoneID" nillable="true" type="tns:TimeZone" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="APIDateTime" nillable="true" type="tns:APIDateTime" />
+      <xs:simpleType name="TimeZone">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="GMT_Minus_12">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_11">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_10">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_9">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_8">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_7">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_6">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_5">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_4">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_3">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_2">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Minus_1">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_1">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_2">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_3">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_4">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_5">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_6">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_7">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_8">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_9">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">22</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_10">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">23</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_11">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">24</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GMT_Plus_12">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">25</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="TimeZone" nillable="true" type="tns:TimeZone" />
+      <xs:complexType name="CampaignSiteNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="SiteName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignSiteNameFilter" nillable="true" type="tns:CampaignSiteNameFilter" />
+      <xs:complexType name="CampaignSiteIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="SiteID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignSiteIDFilter" nillable="true" type="tns:CampaignSiteIDFilter" />
+      <xs:complexType name="CampaignMinNumOfPlacementsFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="NumberOfPlacements" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignMinNumOfPlacementsFilter" nillable="true" type="tns:CampaignMinNumOfPlacementsFilter" />
+      <xs:complexType name="CampaignGlobalCampaignNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="GlobalCampaignName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignGlobalCampaignNameFilter" nillable="true" type="tns:CampaignGlobalCampaignNameFilter" />
+      <xs:complexType name="CampaignGlobalCampaignIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="GlobalCampaignID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignGlobalCampaignIDFilter" nillable="true" type="tns:CampaignGlobalCampaignIDFilter" />
+      <xs:complexType name="CampaignAdvertiserNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="AdvertiserName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignAdvertiserNameFilter" nillable="true" type="tns:CampaignAdvertiserNameFilter" />
+      <xs:complexType name="CampaignAdvertiserIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="AdvertiserID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignAdvertiserIDFilter" nillable="true" type="tns:CampaignAdvertiserIDFilter" />
+      <xs:complexType name="CampaignStartDateFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="FromDate" nillable="true" type="tns:APIDateTime" />
+              <xs:element name="ToDate" nillable="true" type="tns:APIDateTime" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignStartDateFilter" nillable="true" type="tns:CampaignStartDateFilter" />
+      <xs:complexType name="CampaignIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="CampaignID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignIDFilter" nillable="true" type="tns:CampaignIDFilter" />
+      <xs:complexType name="CampaignCreativeShopNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="CreativeShopName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignCreativeShopNameFilter" nillable="true" type="tns:CampaignCreativeShopNameFilter" />
+      <xs:complexType name="CampaignAgencyIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="AgencyID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignAgencyIDFilter" nillable="true" type="tns:CampaignAgencyIDFilter" />
+      <xs:complexType name="CampaignAgencyNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="AgencyName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignAgencyNameFilter" nillable="true" type="tns:CampaignAgencyNameFilter" />
+      <xs:complexType name="CampaignRecentFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="IsRecent" type="xs:boolean" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignRecentFilter" nillable="true" type="tns:CampaignRecentFilter" />
+      <xs:complexType name="CampaignOfficeIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="EyeblasterOfficeID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignOfficeIDFilter" nillable="true" type="tns:CampaignOfficeIDFilter" />
+      <xs:complexType name="CampaignBrandIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="BrandID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignBrandIDFilter" nillable="true" type="tns:CampaignBrandIDFilter" />
+      <xs:complexType name="CampaignBrandNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignServiceFilter">
+            <xs:sequence>
+              <xs:element name="BrandName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignBrandNameFilter" nillable="true" type="tns:CampaignBrandNameFilter" />
+      <xs:complexType name="ArrayOfBasicInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="BasicInfo" nillable="true" type="tns:BasicInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfBasicInfo" nillable="true" type="tns:ArrayOfBasicInfo" />
+      <xs:complexType name="BasicInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DisplayText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="BasicInfo" nillable="true" type="tns:BasicInfo" />
+      <xs:complexType name="ArrayOfCampaignInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CampaignInfo" nillable="true" type="tns:CampaignInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCampaignInfo" nillable="true" type="tns:ArrayOfCampaignInfo" />
+      <xs:complexType name="CampaignInfo">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:BaseDC">
+            <xs:sequence>
+              <xs:element name="AccountManager" nillable="true" type="tns:ContactInfo" />
+              <xs:element name="AdvertiserID" type="xs:int" />
+              <xs:element minOccurs="0" name="AgencyBillingContacts" nillable="true" type="tns:ArrayOfContactInfo" />
+              <xs:element name="AgencyID" type="xs:int" />
+              <xs:element minOccurs="0" name="AgencyMediaPlannerContacts" nillable="true" type="tns:ArrayOfContactInfo" />
+              <xs:element minOccurs="0" name="AgencyMediaTraffickerContacts" nillable="true" type="tns:ArrayOfContactInfo" />
+              <xs:element minOccurs="0" name="AgencySearchContacts" nillable="true" type="tns:ArrayOfContactInfo" />
+              <xs:element name="AllowCreativeShopViewCampaignData" type="xs:boolean" />
+              <xs:element name="BookedImpressions" type="xs:long" />
+              <xs:element name="BrandID" type="xs:int" />
+              <xs:element minOccurs="0" name="CampaignExtendedInfo" nillable="true" type="tns:CampaignExtendedInfo" />
+              <xs:element minOccurs="0" name="CampaignNotes" nillable="true" type="tns:ArrayOfCampaignNoteInfo" />
+              <xs:element name="CampaignSegmentation" nillable="true" type="tns:SegmentationTypes" />
+              <xs:element minOccurs="0" name="CampaignStatus" type="tns:CampaignStatus" />
+              <xs:element minOccurs="0" name="CreativeShops" nillable="true" type="tns:ArrayOfCreativeShopInfo" />
+              <xs:element name="DefaultTargetRegionID" nillable="true" type="xs:int" />
+              <xs:element name="GlobalCampaignID" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+              <xs:element name="SalesPerson" nillable="true" type="tns:ContactInfo" />
+              <xs:element minOccurs="0" name="SiteBillingContacts" nillable="true" type="tns:ArrayOfContactInfo" />
+              <xs:element minOccurs="0" name="SiteSalesContacts" nillable="true" type="tns:ArrayOfContactInfo" />
+              <xs:element minOccurs="0" name="SiteTraffickerAdOpContacts" nillable="true" type="tns:ArrayOfContactInfo" />
+              <xs:element name="SpecialInstructions" nillable="true" type="xs:string" />
+              <xs:element name="StopServing" nillable="true" type="tns:StopServingTypes" />
+              <xs:element name="TotalPlacments" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignInfo" nillable="true" type="tns:CampaignInfo" />
+      <xs:complexType name="BaseDC">
+        <xs:sequence>
+          <xs:element name="ID" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="BaseDC" nillable="true" type="tns:BaseDC" />
+      <xs:complexType name="ContactInfo">
+        <xs:sequence>
+          <xs:element name="AccountID" type="xs:int" />
+          <xs:element name="ContactID" type="xs:int" />
+          <xs:element name="ContactUserName" nillable="true" type="xs:string" />
+          <xs:element name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobilePhone" nillable="true" type="xs:string" />
+          <xs:element name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OfficePhone" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ContactInfo" nillable="true" type="tns:ContactInfo" />
+      <xs:complexType name="ArrayOfContactInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ContactInfo" nillable="true" type="tns:ContactInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfContactInfo" nillable="true" type="tns:ArrayOfContactInfo" />
+      <xs:complexType name="CampaignExtendedInfo">
+        <xs:sequence>
+          <xs:element name="ActualImpressions" type="xs:long" />
+          <xs:element name="ActualStartDate" nillable="true" type="tns:APIDateTime" />
+          <xs:element name="AdvertiserName" nillable="true" type="xs:string" />
+          <xs:element name="AgencyName" nillable="true" type="xs:string" />
+          <xs:element name="EndDate" nillable="true" type="tns:APIDateTime" />
+          <xs:element name="GlobalCampaign" nillable="true" type="xs:string" />
+          <xs:element name="StartDate" nillable="true" type="tns:APIDateTime" />
+          <xs:element name="TotalPlacmentsWithUnlimitedBookedImpressions" type="xs:int" />
+          <xs:element name="TotalSites" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CampaignExtendedInfo" nillable="true" type="tns:CampaignExtendedInfo" />
+      <xs:complexType name="ArrayOfCampaignNoteInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CampaignNoteInfo" nillable="true" type="tns:CampaignNoteInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCampaignNoteInfo" nillable="true" type="tns:ArrayOfCampaignNoteInfo" />
+      <xs:complexType name="CampaignNoteInfo">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:BaseDC">
+            <xs:sequence>
+              <xs:element name="NoteText" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CampaignNoteInfo" nillable="true" type="tns:CampaignNoteInfo" />
+      <xs:simpleType name="SegmentationTypes">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Regional">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RegionalLingual">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="SegmentationTypes" nillable="true" type="tns:SegmentationTypes" />
+      <xs:simpleType name="CampaignStatus">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CampaignHasNotStarted">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CampaignIsRunning">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CampaignIsIdle">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CampaignStatus" nillable="true" type="tns:CampaignStatus" />
+      <xs:complexType name="ArrayOfCreativeShopInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CreativeShopInfo" nillable="true" type="tns:CreativeShopInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCreativeShopInfo" nillable="true" type="tns:ArrayOfCreativeShopInfo" />
+      <xs:complexType name="CreativeShopInfo">
+        <xs:sequence>
+          <xs:element name="CreativeContacts" nillable="true" type="tns:ArrayOfCreativeContactInfo" />
+          <xs:element name="CreativeShopID" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CreativeShopInfo" nillable="true" type="tns:CreativeShopInfo" />
+      <xs:complexType name="ArrayOfCreativeContactInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CreativeContactInfo" nillable="true" type="tns:CreativeContactInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCreativeContactInfo" nillable="true" type="tns:ArrayOfCreativeContactInfo" />
+      <xs:complexType name="CreativeContactInfo">
+        <xs:sequence>
+          <xs:element name="CreativeContactID" type="xs:int" />
+          <xs:element name="CreativeRole" type="tns:CreativeContactRoles" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CreativeContactInfo" nillable="true" type="tns:CreativeContactInfo" />
+      <xs:simpleType name="CreativeContactRoles">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CreativeShopProducer">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CreativeShopDesigner">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CreativeContactRoles" nillable="true" type="tns:CreativeContactRoles" />
+      <xs:simpleType name="StopServingTypes">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="KeepServingAsUsual" />
+          <xs:enumeration value="BothImpressionsAndEndDate" />
+          <xs:enumeration value="ImpressionsOrEndDate" />
+          <xs:enumeration value="OnEndDate" />
+          <xs:enumeration value="WhenImpressionsGoalIsMet" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="StopServingTypes" nillable="true" type="tns:StopServingTypes" />
+      <xs:complexType name="ArrayOfTargetRegionInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TargetRegionInfo" nillable="true" type="tns:TargetRegionInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfTargetRegionInfo" nillable="true" type="tns:ArrayOfTargetRegionInfo" />
+      <xs:complexType name="TargetRegionInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element name="NodeID" type="xs:int" />
+          <xs:element minOccurs="0" name="SubHierarchies" nillable="true" type="tns:ArrayOfTargetRegionInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TargetRegionInfo" nillable="true" type="tns:TargetRegionInfo" />
+      <xs:simpleType name="OptimizationMethod">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="SingleWinner">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="EvenOdds">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">-1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="OptimizationMethod" nillable="true" type="tns:OptimizationMethod" />
+      <xs:simpleType name="MetricTypes">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Clicks">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AllUserInteractions">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CustomInteraction">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AllConversions">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AllPostImpressionConversions">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="AllPostClickConversions">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CustomConversion">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VideoStart">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VideoFullyPlayed">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VideoPlayed25">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VideoPlayed50">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VideoPlayed75">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ImpressionsWithInteractions">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ImpressionsWithDwell">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="MetricTypes" nillable="true" type="tns:MetricTypes" />
+      <xs:complexType name="ArrayOfCampaignInteractionInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CampaignInteractionInfo" nillable="true" type="tns:CampaignInteractionInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCampaignInteractionInfo" nillable="true" type="tns:ArrayOfCampaignInteractionInfo" />
+      <xs:complexType name="CampaignInteractionInfo">
+        <xs:sequence>
+          <xs:element name="CampaignID" type="xs:int" />
+          <xs:element name="Enabled" type="xs:boolean" />
+          <xs:element name="InteractionName" nillable="true" type="xs:string" />
+          <xs:element name="ReportingName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CampaignInteractionInfo" nillable="true" type="tns:CampaignInteractionInfo" />
+      <xs:complexType name="UserActionCampaignInteractionInfo">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignInteractionInfo">
+            <xs:sequence>
+              <xs:element name="ClickthroughURL" nillable="true" type="xs:string" />
+              <xs:element name="CloseAdParts" type="xs:boolean" />
+              <xs:element name="IncludeInInteractionRate" type="xs:boolean" />
+              <xs:element name="SilentURL" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="UserActionCampaignInteractionInfo" nillable="true" type="tns:UserActionCampaignInteractionInfo" />
+      <xs:complexType name="ClickthroughCampaignInteractionInfo">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignInteractionInfo">
+            <xs:sequence>
+              <xs:element name="AgencyTrackingURL" nillable="true" type="xs:string" />
+              <xs:element name="ClickthroughURL" nillable="true" type="xs:string" />
+              <xs:element name="JumpTarget" type="tns:JumpTargets" />
+              <xs:element minOccurs="0" name="NewWindowHeight" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="NewWindowShowAddressBar" nillable="true" type="xs:boolean" />
+              <xs:element minOccurs="0" name="NewWindowShowMenuBar" nillable="true" type="xs:boolean" />
+              <xs:element minOccurs="0" name="NewWindowWidth" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="NewWindowXPosition" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="NewWindowYPosition" nillable="true" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="ClickthroughCampaignInteractionInfo" nillable="true" type="tns:ClickthroughCampaignInteractionInfo" />
+      <xs:simpleType name="JumpTargets">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CurrentFrame" />
+          <xs:enumeration value="NewWindow" />
+          <xs:enumeration value="Top" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="JumpTargets" nillable="true" type="tns:JumpTargets" />
+      <xs:complexType name="TimerCampaignInteractionInfo">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignInteractionInfo">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="TimerCampaignInteractionInfo" nillable="true" type="tns:TimerCampaignInteractionInfo" />
+      <xs:complexType name="AutomaticEventCampaignInteractionInfo">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CampaignInteractionInfo">
+            <xs:sequence>
+              <xs:element name="ClickthroughURL" nillable="true" type="xs:string" />
+              <xs:element name="CloseAdParts" type="xs:boolean" />
+              <xs:element name="SilentURL" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="AutomaticEventCampaignInteractionInfo" nillable="true" type="tns:AutomaticEventCampaignInteractionInfo" />
+      <xs:simpleType name="AdSnapImages">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FullPageFirstSnap" />
+          <xs:enumeration value="VisibleAreaFirstSnap" />
+          <xs:enumeration value="FullPageSecondSnap" />
+          <xs:enumeration value="VisibleAreaSecondSnap" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="AdSnapImages" nillable="true" type="tns:AdSnapImages" />
+      <xs:complexType name="ArrayOfAdSnapInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AdSnapInfo" nillable="true" type="tns:AdSnapInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAdSnapInfo" nillable="true" type="tns:ArrayOfAdSnapInfo" />
+      <xs:complexType name="AdSnapInfo">
+        <xs:sequence>
+          <xs:element name="AdID" type="xs:int" />
+          <xs:element minOccurs="0" name="IsURLValid" type="xs:boolean" />
+          <xs:element minOccurs="0" name="URL" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AdSnapInfo" nillable="true" type="tns:AdSnapInfo" />
+      <xs:complexType name="ArrayOfMonitorDeliveryFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MonitorDeliveryFilter" nillable="true" type="tns:MonitorDeliveryFilter" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfMonitorDeliveryFilter" nillable="true" type="tns:ArrayOfMonitorDeliveryFilter" />
+      <xs:complexType name="MonitorDeliveryFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q57="http://api.eyeblaster.com/message" base="q57:APIFilterBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MonitorDeliveryFilter" nillable="true" type="tns:MonitorDeliveryFilter" />
+      <xs:complexType name="MonitorDelivery_PlacementIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:MonitorDeliveryFilter">
+            <xs:sequence>
+              <xs:element name="PlacementID" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MonitorDelivery_PlacementIDFilter" nillable="true" type="tns:MonitorDelivery_PlacementIDFilter" />
+      <xs:complexType name="MonitorDelivery_PlacementStatusFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:MonitorDeliveryFilter">
+            <xs:sequence>
+              <xs:element name="PlacementStatus" type="tns:MonitorDeliveryPlacementStatuses" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MonitorDelivery_PlacementStatusFilter" nillable="true" type="tns:MonitorDelivery_PlacementStatusFilter" />
+      <xs:simpleType name="MonitorDeliveryPlacementStatuses">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="InPlanning">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Published">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Idle">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Live">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="HardStopApplied">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PublishedIOPendingSignature">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="MonitorDeliveryPlacementStatuses" nillable="true" type="tns:MonitorDeliveryPlacementStatuses" />
+      <xs:complexType name="MonitorDelivery_SiteIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:MonitorDeliveryFilter">
+            <xs:sequence>
+              <xs:element name="SiteID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MonitorDelivery_SiteIDFilter" nillable="true" type="tns:MonitorDelivery_SiteIDFilter" />
+      <xs:complexType name="MonitorDelivery_AdvertiserIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:MonitorDeliveryFilter">
+            <xs:sequence>
+              <xs:element name="AdvertiserID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="MonitorDelivery_AdvertiserIDFilter" nillable="true" type="tns:MonitorDelivery_AdvertiserIDFilter" />
+      <xs:complexType name="ArrayOfMonitorDeliveryInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MonitorDeliveryInfo" nillable="true" type="tns:MonitorDeliveryInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfMonitorDeliveryInfo" nillable="true" type="tns:ArrayOfMonitorDeliveryInfo" />
+      <xs:complexType name="MonitorDeliveryInfo">
+        <xs:sequence>
+          <xs:element name="ActualImpressions" type="xs:long" />
+          <xs:element name="ActualStart" nillable="true" type="tns:APIDateTime" />
+          <xs:element minOccurs="0" name="Advertiser" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Agency" nillable="true" type="xs:string" />
+          <xs:element name="BookedImpressions" type="xs:int" />
+          <xs:element minOccurs="0" name="Campaign" nillable="true" type="xs:string" />
+          <xs:element name="Clicks" type="xs:long" />
+          <xs:element name="ClickthroughRate" type="xs:double" />
+          <xs:element name="ClickthroughRateOfTheLast24Hours" type="xs:decimal" />
+          <xs:element name="ClicsLast24Hrs" type="xs:long" />
+          <xs:element name="DeliveryRate" type="xs:double" />
+          <xs:element name="EndDate" nillable="true" type="tns:APIDateTime" />
+          <xs:element name="ID" type="xs:int" />
+          <xs:element name="ImpressionsAfterStopServing" type="xs:long" />
+          <xs:element name="ImpressionsLast24Hrs" type="xs:long" />
+          <xs:element name="InteractionRate" type="xs:double" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PackageName" nillable="true" type="xs:string" />
+          <xs:element name="PlacementType" type="tns:PlacementTypes" />
+          <xs:element name="RequiredDailyImpressions" type="xs:long" />
+          <xs:element minOccurs="0" name="Section" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Site" nillable="true" type="xs:string" />
+          <xs:element name="StartDate" nillable="true" type="tns:APIDateTime" />
+          <xs:element name="Status" type="tns:MonitorDeliveryPlacementStatuses" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="MonitorDeliveryInfo" nillable="true" type="tns:MonitorDeliveryInfo" />
+      <xs:simpleType name="PlacementTypes">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="OutOfBanner">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RichBanner">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Banner">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TrackingType">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="InGame">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="InStreamVideo">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="InStreamVideoTracking">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Mobile">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="InBanner">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="PlacementTypes" nillable="true" type="tns:PlacementTypes" />
+      <xs:complexType name="PublishCampaignInfo">
+        <xs:sequence>
+          <xs:element name="AdditionalNotes" nillable="true" type="xs:string" />
+          <xs:element name="CampaignID" type="xs:int" />
+          <xs:element name="PublishNonPublishedAds" type="xs:boolean" />
+          <xs:element name="SendCodePackageToAgencyContacts" type="xs:boolean" />
+          <xs:element name="SendCodePackageToSiteContacts" type="xs:boolean" />
+          <xs:element xmlns:q58="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="SiteIDs" nillable="true" type="q58:ArrayOfint" />
+          <xs:element name="UserID" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PublishCampaignInfo" nillable="true" type="tns:PublishCampaignInfo" />
+      <xs:simpleType name="ContactRoles">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Agency">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CreativeShop">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Site">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ContactRoles" nillable="true" type="tns:ContactRoles" />
+      <xs:complexType name="ArrayOfGetSitesFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="GetSitesFilter" nillable="true" type="tns:GetSitesFilter" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfGetSitesFilter" nillable="true" type="tns:ArrayOfGetSitesFilter" />
+      <xs:complexType name="GetSitesFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q59="http://api.eyeblaster.com/message" base="q59:APIFilterBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetSitesFilter" nillable="true" type="tns:GetSitesFilter" />
+      <xs:complexType name="GetSitesByMarketFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetSitesFilter">
+            <xs:sequence>
+              <xs:element name="MarketID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetSitesByMarketFilter" nillable="true" type="tns:GetSitesByMarketFilter" />
+      <xs:complexType name="GetSitesByOfficeFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetSitesFilter">
+            <xs:sequence>
+              <xs:element name="EyeblasterOfficeID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetSitesByOfficeFilter" nillable="true" type="tns:GetSitesByOfficeFilter" />
+      <xs:complexType name="GetSitesByNameFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetSitesFilter">
+            <xs:sequence>
+              <xs:element name="SiteName" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetSitesByNameFilter" nillable="true" type="tns:GetSitesByNameFilter" />
+      <xs:complexType name="ArrayOfGetCreativeShopsFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="GetCreativeShopsFilter" nillable="true" type="tns:GetCreativeShopsFilter" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfGetCreativeShopsFilter" nillable="true" type="tns:ArrayOfGetCreativeShopsFilter" />
+      <xs:complexType name="GetCreativeShopsFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q60="http://api.eyeblaster.com/message" base="q60:APIFilterBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetCreativeShopsFilter" nillable="true" type="tns:GetCreativeShopsFilter" />
+      <xs:complexType name="GetCreativeShopByOfficeFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetCreativeShopsFilter">
+            <xs:sequence>
+              <xs:element name="EyeblasterOfficeID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetCreativeShopByOfficeFilter" nillable="true" type="tns:GetCreativeShopByOfficeFilter" />
+      <xs:complexType name="GetCreativeShopByMarketFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetCreativeShopsFilter">
+            <xs:sequence>
+              <xs:element name="MarketID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetCreativeShopByMarketFilter" nillable="true" type="tns:GetCreativeShopByMarketFilter" />
+      <xs:complexType name="GetCreativeShopByIDFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetCreativeShopsFilter">
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetCreativeShopByIDFilter" nillable="true" type="tns:GetCreativeShopByIDFilter" />
+      <xs:complexType name="ArrayOfGetHistoryFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="GetHistoryFilter" nillable="true" type="tns:GetHistoryFilter" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfGetHistoryFilter" nillable="true" type="tns:ArrayOfGetHistoryFilter" />
+      <xs:complexType name="GetHistoryFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q61="http://api.eyeblaster.com/message" base="q61:APIFilterBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetHistoryFilter" nillable="true" type="tns:GetHistoryFilter" />
+      <xs:complexType name="GetHistoryPerformedByFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetHistoryFilter">
+            <xs:sequence>
+              <xs:element name="PerformedBy" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetHistoryPerformedByFilter" nillable="true" type="tns:GetHistoryPerformedByFilter" />
+      <xs:complexType name="GetHistoryObjectTypeFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetHistoryFilter">
+            <xs:sequence>
+              <xs:element name="ObjectTypeID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetHistoryObjectTypeFilter" nillable="true" type="tns:GetHistoryObjectTypeFilter" />
+      <xs:complexType name="GetHistoryActivityDateFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetHistoryFilter">
+            <xs:sequence>
+              <xs:element name="FromDate" nillable="true" type="tns:APIDateTime" />
+              <xs:element name="ToDate" nillable="true" type="tns:APIDateTime" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetHistoryActivityDateFilter" nillable="true" type="tns:GetHistoryActivityDateFilter" />
+      <xs:complexType name="GetHistoryActionTypeFilter">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:GetHistoryFilter">
+            <xs:sequence>
+              <xs:element name="ActionTypeID" type="xs:int" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetHistoryActionTypeFilter" nillable="true" type="tns:GetHistoryActionTypeFilter" />
+      <xs:complexType name="ArrayOfHistoryInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="HistoryInfo" nillable="true" type="tns:HistoryInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfHistoryInfo" nillable="true" type="tns:ArrayOfHistoryInfo" />
+      <xs:complexType name="HistoryInfo">
+        <xs:sequence>
+          <xs:element name="Activity" nillable="true" type="xs:string" />
+          <xs:element name="ActivityDate" nillable="true" type="tns:APIDateTime" />
+          <xs:element name="EntityID" nillable="true" type="xs:string" />
+          <xs:element name="Object" nillable="true" type="xs:string" />
+          <xs:element name="PerformedBy" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="HistoryInfo" nillable="true" type="tns:HistoryInfo" />
+      <xs:complexType name="CampaignEffectiveSettingsInfo">
+        <xs:sequence>
+          <xs:element name="CampaignID" type="xs:int" />
+          <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CampaignEffectiveSettingsInfo" nillable="true" type="tns:CampaignEffectiveSettingsInfo" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfint">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetCampaignsBasicInfoRequest">
+    <wsdl:part xmlns:q62="http://api.eyeblaster.com/message" name="parameters" element="q62:GetCampaignsBasicInfoRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignsBasicInfoRequest_Headers">
+    <wsdl:part xmlns:q63="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q63:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignsBasicInfoResponse">
+    <wsdl:part xmlns:q64="http://api.eyeblaster.com/message" name="parameters" element="q64:GetCampaignsBasicInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignsRequest">
+    <wsdl:part xmlns:q65="http://api.eyeblaster.com/message" name="parameters" element="q65:GetCampaignsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignsRequest_Headers">
+    <wsdl:part xmlns:q66="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q66:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignsResponse">
+    <wsdl:part xmlns:q67="http://api.eyeblaster.com/message" name="parameters" element="q67:GetCampaignsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignRequest">
+    <wsdl:part xmlns:q68="http://api.eyeblaster.com/message" name="parameters" element="q68:CreateCampaignRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignRequest_Headers">
+    <wsdl:part xmlns:q69="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q69:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignResponse">
+    <wsdl:part xmlns:q70="http://api.eyeblaster.com/message" name="parameters" element="q70:CreateCampaignResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignRequest">
+    <wsdl:part xmlns:q71="http://api.eyeblaster.com/message" name="parameters" element="q71:UpdateCampaignRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignRequest_Headers">
+    <wsdl:part xmlns:q72="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q72:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignResponse">
+    <wsdl:part xmlns:q73="http://api.eyeblaster.com/message" name="parameters" element="q73:UpdateCampaignResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCampaignRequest">
+    <wsdl:part xmlns:q74="http://api.eyeblaster.com/message" name="parameters" element="q74:DeleteCampaignRequest" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCampaignRequest_Headers">
+    <wsdl:part xmlns:q75="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q75:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCampaignsResponse">
+    <wsdl:part xmlns:q76="http://api.eyeblaster.com/message" name="parameters" element="q76:DeleteCampaignsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTargetRegionRequest">
+    <wsdl:part xmlns:q77="http://api.eyeblaster.com/message" name="parameters" element="q77:GetTargetRegionRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetTargetRegionRequest_Headers">
+    <wsdl:part xmlns:q78="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q78:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetTargetRegionResponse">
+    <wsdl:part xmlns:q79="http://api.eyeblaster.com/message" name="parameters" element="q79:GetTargetRegionResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnableAutomaticOptimizationRequest">
+    <wsdl:part xmlns:q80="http://api.eyeblaster.com/message" name="parameters" element="q80:EnableAutomaticOptimizationRequest" />
+  </wsdl:message>
+  <wsdl:message name="EnableAutomaticOptimizationRequest_Headers">
+    <wsdl:part xmlns:q81="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q81:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="EnableAutomaticOptimizationResponse">
+    <wsdl:part xmlns:q82="http://api.eyeblaster.com/message" name="parameters" element="q82:EnableAutomaticOptimizationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateIOForCampaignRequest">
+    <wsdl:part xmlns:q83="http://api.eyeblaster.com/message" name="parameters" element="q83:GenerateIOForCampaignRequest" />
+  </wsdl:message>
+  <wsdl:message name="GenerateIOForCampaignRequest_Headers">
+    <wsdl:part xmlns:q84="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q84:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GenerateIOForCampaignResponse">
+    <wsdl:part xmlns:q85="http://api.eyeblaster.com/message" name="parameters" element="q85:GenerateIOForCampaignResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignInteractionsRequest">
+    <wsdl:part xmlns:q86="http://api.eyeblaster.com/message" name="parameters" element="q86:GetCampaignInteractionsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignInteractionsRequest_Headers">
+    <wsdl:part xmlns:q87="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q87:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignInteractionsResponse">
+    <wsdl:part xmlns:q88="http://api.eyeblaster.com/message" name="parameters" element="q88:GetCampaignInteractionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignInteractionsRequest">
+    <wsdl:part xmlns:q89="http://api.eyeblaster.com/message" name="parameters" element="q89:UpdateCampaignInteractionsRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignInteractionsRequest_Headers">
+    <wsdl:part xmlns:q90="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q90:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCampaignInteractionsResponse">
+    <wsdl:part xmlns:q91="http://api.eyeblaster.com/message" name="parameters" element="q91:UpdateCampaignInteractionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInteractionRelatedAdsRequest">
+    <wsdl:part xmlns:q92="http://api.eyeblaster.com/message" name="parameters" element="q92:GetInteractionRelatedAdsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetInteractionRelatedAdsRequest_Headers">
+    <wsdl:part xmlns:q93="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q93:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetInteractionRelatedAdsResponse">
+    <wsdl:part xmlns:q94="http://api.eyeblaster.com/message" name="parameters" element="q94:GetInteractionRelatedAdsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAdSnapRequest">
+    <wsdl:part xmlns:q95="http://api.eyeblaster.com/message" name="parameters" element="q95:GetAdSnapRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetAdSnapRequest_Headers">
+    <wsdl:part xmlns:q96="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q96:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAdSnapResponse">
+    <wsdl:part xmlns:q97="http://api.eyeblaster.com/message" name="parameters" element="q97:GetAdSnapResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorDeliveryRequest">
+    <wsdl:part xmlns:q98="http://api.eyeblaster.com/message" name="parameters" element="q98:GetMonitorDeliveryRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorDeliveryRequest_Headers">
+    <wsdl:part xmlns:q99="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q99:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorDeliveryResponse">
+    <wsdl:part xmlns:q100="http://api.eyeblaster.com/message" name="parameters" element="q100:GetMonitorDeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="PublishCampaignRequest">
+    <wsdl:part xmlns:q101="http://api.eyeblaster.com/message" name="parameters" element="q101:PublishCampaignRequest" />
+  </wsdl:message>
+  <wsdl:message name="PublishCampaignRequest_Headers">
+    <wsdl:part xmlns:q102="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q102:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="PublishCampaignResponse">
+    <wsdl:part xmlns:q103="http://api.eyeblaster.com/message" name="parameters" element="q103:PublishCampaignResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignSitesRequest">
+    <wsdl:part xmlns:q104="http://api.eyeblaster.com/message" name="parameters" element="q104:GetCampaignSitesRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignSitesRequest_Headers">
+    <wsdl:part xmlns:q105="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q105:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignSitesResponse">
+    <wsdl:part xmlns:q106="http://api.eyeblaster.com/message" name="parameters" element="q106:GetCampaignSitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateContactRequest">
+    <wsdl:part xmlns:q107="http://api.eyeblaster.com/message" name="parameters" element="q107:CreateContactRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateContactRequest_Headers">
+    <wsdl:part xmlns:q108="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q108:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="CreateContactResponse">
+    <wsdl:part xmlns:q109="http://api.eyeblaster.com/message" name="parameters" element="q109:CreateContactResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContactRequest">
+    <wsdl:part xmlns:q110="http://api.eyeblaster.com/message" name="parameters" element="q110:GetContactRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetContactRequest_Headers">
+    <wsdl:part xmlns:q111="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q111:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetContactResponse">
+    <wsdl:part xmlns:q112="http://api.eyeblaster.com/message" name="parameters" element="q112:GetContactResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgencyContactsRequest">
+    <wsdl:part xmlns:q113="http://api.eyeblaster.com/message" name="parameters" element="q113:GetAgencyContactsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetAgencyContactsRequest_Headers">
+    <wsdl:part xmlns:q114="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q114:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAgencyContactsResponse">
+    <wsdl:part xmlns:q115="http://api.eyeblaster.com/message" name="parameters" element="q115:GetAgencyContactsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCreativeShopRequest">
+    <wsdl:part xmlns:q116="http://api.eyeblaster.com/message" name="parameters" element="q116:GetCreativeShopRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCreativeShopRequest_Headers">
+    <wsdl:part xmlns:q117="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q117:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetCreativeShopResponse">
+    <wsdl:part xmlns:q118="http://api.eyeblaster.com/message" name="parameters" element="q118:GetCreativeShopResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsRequest">
+    <wsdl:part xmlns:q119="http://api.eyeblaster.com/message" name="parameters" element="q119:GetSiteContactsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsRequest_Headers">
+    <wsdl:part xmlns:q120="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q120:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetSiteContactsResponse">
+    <wsdl:part xmlns:q121="http://api.eyeblaster.com/message" name="parameters" element="q121:GetSiteContactsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignSiteContactsRequest">
+    <wsdl:part xmlns:q122="http://api.eyeblaster.com/message" name="parameters" element="q122:GetCampaignSiteContactsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignSiteContactsRequest_Headers">
+    <wsdl:part xmlns:q123="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q123:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetMarketsRequest">
+    <wsdl:part xmlns:q124="http://api.eyeblaster.com/message" name="parameters" element="q124:GetMarketsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetMarketsRequest_Headers">
+    <wsdl:part xmlns:q125="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q125:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetMarketsResponse">
+    <wsdl:part xmlns:q126="http://api.eyeblaster.com/message" name="parameters" element="q126:GetMarketsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOfficesRequest">
+    <wsdl:part xmlns:q127="http://api.eyeblaster.com/message" name="parameters" element="q127:GetOfficesRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetOfficesRequest_Headers">
+    <wsdl:part xmlns:q128="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q128:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetOfficesResponse">
+    <wsdl:part xmlns:q129="http://api.eyeblaster.com/message" name="parameters" element="q129:GetOfficesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSitesRequest">
+    <wsdl:part xmlns:q130="http://api.eyeblaster.com/message" name="parameters" element="q130:GetSitesRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetSitesRequest_Headers">
+    <wsdl:part xmlns:q131="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q131:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetSitesResponse">
+    <wsdl:part xmlns:q132="http://api.eyeblaster.com/message" name="parameters" element="q132:GetSitesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAgenciesRequest">
+    <wsdl:part xmlns:q133="http://api.eyeblaster.com/message" name="parameters" element="q133:GetAgenciesRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetAgenciesRequest_Headers">
+    <wsdl:part xmlns:q134="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q134:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAgenciesResponse">
+    <wsdl:part xmlns:q135="http://api.eyeblaster.com/message" name="parameters" element="q135:GetAgenciesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCreativeShopsRequest">
+    <wsdl:part xmlns:q136="http://api.eyeblaster.com/message" name="parameters" element="q136:GetCreativeShopsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCreativeShopsRequest_Headers">
+    <wsdl:part xmlns:q137="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q137:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetCreativeShopsResponse">
+    <wsdl:part xmlns:q138="http://api.eyeblaster.com/message" name="parameters" element="q138:GetCreativeShopsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignHistoryRequest">
+    <wsdl:part xmlns:q139="http://api.eyeblaster.com/message" name="parameters" element="q139:GetCampaignHistoryRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignHistoryRequest_Headers">
+    <wsdl:part xmlns:q140="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q140:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoryResponse">
+    <wsdl:part xmlns:q141="http://api.eyeblaster.com/message" name="parameters" element="q141:GetHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoryObjectsRequest">
+    <wsdl:part xmlns:q142="http://api.eyeblaster.com/message" name="parameters" element="q142:GetHistoryObjectsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoryObjectsRequest_Headers">
+    <wsdl:part xmlns:q143="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q143:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoryObjectsResponse">
+    <wsdl:part xmlns:q144="http://api.eyeblaster.com/message" name="parameters" element="q144:GetHistoryObjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoryActionsRequest">
+    <wsdl:part xmlns:q145="http://api.eyeblaster.com/message" name="parameters" element="q145:GetHistoryActionsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoryActionsRequest_Headers">
+    <wsdl:part xmlns:q146="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q146:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoryActionsResponse">
+    <wsdl:part xmlns:q147="http://api.eyeblaster.com/message" name="parameters" element="q147:GetHistoryActionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignEffectiveSettingsRequest">
+    <wsdl:part xmlns:q148="http://api.eyeblaster.com/message" name="parameters" element="q148:GetCampaignEffectiveSettingsRequest" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignEffectiveSettingsRequest_Headers">
+    <wsdl:part xmlns:q149="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q149:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="GetCampaignEffectiveSettingsResponse">
+    <wsdl:part xmlns:q150="http://api.eyeblaster.com/message" name="parameters" element="q150:GetCampaignEffectiveSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignCustomLogRequest">
+    <wsdl:part xmlns:q151="http://api.eyeblaster.com/message" name="parameters" element="q151:CreateCampaignCustomLogRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateCampaignCustomLogRequest_Headers">
+    <wsdl:part xmlns:q152="http://api.eyeblaster.com/message" name="UserSecurityToken" element="q152:UserSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="ICampaignService_CreateCampaignCustomLog_OutputMessage" />
+  <wsdl:portType name="ICampaignService">
+    <wsdl:operation name="GetCampaignsBasicInfo">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignsBasicInfo" name="GetCampaignsBasicInfoRequest" message="tns:GetCampaignsBasicInfoRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignsBasicInfoResponse" name="GetCampaignsBasicInfoResponse" message="tns:GetCampaignsBasicInfoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaigns">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaigns" name="GetCampaignsRequest" message="tns:GetCampaignsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignsResponse" name="GetCampaignsResponse" message="tns:GetCampaignsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCampaign">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/CreateCampaign" name="CreateCampaignRequest" message="tns:CreateCampaignRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/CreateCampaignResponse" name="CreateCampaignResponse" message="tns:CreateCampaignResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCampaign">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/UpdateCampaign" name="UpdateCampaignRequest" message="tns:UpdateCampaignRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/UpdateCampaignResponse" name="UpdateCampaignResponse" message="tns:UpdateCampaignResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCampaign">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/DeleteCampaign" name="DeleteCampaignRequest" message="tns:DeleteCampaignRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/DeleteCampaignResponse" name="DeleteCampaignsResponse" message="tns:DeleteCampaignsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTargetRegionTree">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetTargetRegionTree" name="GetTargetRegionRequest" message="tns:GetTargetRegionRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetTargetRegionTreeResponse" name="GetTargetRegionResponse" message="tns:GetTargetRegionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="EnableAutomaticOptimizationOnCampaign">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/EnableAutomaticOptimizationOnCampaign" name="EnableAutomaticOptimizationRequest" message="tns:EnableAutomaticOptimizationRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/EnableAutomaticOptimizationOnCampaignResponse" name="EnableAutomaticOptimizationResponse" message="tns:EnableAutomaticOptimizationResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIOForCampaign">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GenerateIOForCampaign" name="GenerateIOForCampaignRequest" message="tns:GenerateIOForCampaignRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GenerateIOForCampaignResponse" name="GenerateIOForCampaignResponse" message="tns:GenerateIOForCampaignResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignInteractions">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignInteractions" name="GetCampaignInteractionsRequest" message="tns:GetCampaignInteractionsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignInteractionsResponse" name="GetCampaignInteractionsResponse" message="tns:GetCampaignInteractionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCampaignInteractions">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/UpdateCampaignInteractions" name="UpdateCampaignInteractionsRequest" message="tns:UpdateCampaignInteractionsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/UpdateCampaignInteractionsResponse" name="UpdateCampaignInteractionsResponse" message="tns:UpdateCampaignInteractionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInteractionRelatedAds">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetInteractionRelatedAds" name="GetInteractionRelatedAdsRequest" message="tns:GetInteractionRelatedAdsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetInteractionRelatedAdsResponse" name="GetInteractionRelatedAdsResponse" message="tns:GetInteractionRelatedAdsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdSnaps">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAdSnaps" name="GetAdSnapRequest" message="tns:GetAdSnapRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAdSnapsResponse" name="GetAdSnapResponse" message="tns:GetAdSnapResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitorDelivery">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetMonitorDelivery" name="GetMonitorDeliveryRequest" message="tns:GetMonitorDeliveryRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetMonitorDeliveryResponse" name="GetMonitorDeliveryResponse" message="tns:GetMonitorDeliveryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="PublishCampaign">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/PublishCampaign" name="PublishCampaignRequest" message="tns:PublishCampaignRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/PublishCampaignResponse" name="PublishCampaignResponse" message="tns:PublishCampaignResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignSites">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignSites" name="GetCampaignSitesRequest" message="tns:GetCampaignSitesRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignSitesResponse" name="GetCampaignSitesResponse" message="tns:GetCampaignSitesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateContact">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/CreateContact" name="CreateContactRequest" message="tns:CreateContactRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/CreateContactResponse" name="CreateContactResponse" message="tns:CreateContactResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContact">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetContact" name="GetContactRequest" message="tns:GetContactRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetContactResponse" name="GetContactResponse" message="tns:GetContactResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgencyContacts">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAgencyContacts" name="GetAgencyContactsRequest" message="tns:GetAgencyContactsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAgencyContactsResponse" name="GetAgencyContactsResponse" message="tns:GetAgencyContactsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCreativeShopContacts">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCreativeShopContacts" name="GetCreativeShopRequest" message="tns:GetCreativeShopRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCreativeShopContactsResponse" name="GetCreativeShopResponse" message="tns:GetCreativeShopResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetSiteContacts" name="GetSiteContactsRequest" message="tns:GetSiteContactsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetSiteContactsResponse" name="GetSiteContactsResponse" message="tns:GetSiteContactsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSiteContacts">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAllSiteContacts" name="GetCampaignSiteContactsRequest" message="tns:GetCampaignSiteContactsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAllSiteContactsResponse" name="GetSiteContactsResponse" message="tns:GetSiteContactsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMarkets">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetMarkets" name="GetMarketsRequest" message="tns:GetMarketsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetMarketsResponse" name="GetMarketsResponse" message="tns:GetMarketsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOffices">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetOffices" name="GetOfficesRequest" message="tns:GetOfficesRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetOfficesResponse" name="GetOfficesResponse" message="tns:GetOfficesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSites">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetSites" name="GetSitesRequest" message="tns:GetSitesRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetSitesResponse" name="GetSitesResponse" message="tns:GetSitesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgencies">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAgencies" name="GetAgenciesRequest" message="tns:GetAgenciesRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetAgenciesResponse" name="GetAgenciesResponse" message="tns:GetAgenciesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCreativeShops">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCreativeShops" name="GetCreativeShopsRequest" message="tns:GetCreativeShopsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCreativeShopsResponse" name="GetCreativeShopsResponse" message="tns:GetCreativeShopsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignHistory">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignHistory" name="GetCampaignHistoryRequest" message="tns:GetCampaignHistoryRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignHistoryResponse" name="GetHistoryResponse" message="tns:GetHistoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignHistoryObjects">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignHistoryObjects" name="GetHistoryObjectsRequest" message="tns:GetHistoryObjectsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignHistoryObjectsResponse" name="GetHistoryObjectsResponse" message="tns:GetHistoryObjectsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignHistoryActions">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignHistoryActions" name="GetHistoryActionsRequest" message="tns:GetHistoryActionsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignHistoryActionsResponse" name="GetHistoryActionsResponse" message="tns:GetHistoryActionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignEffectiveSettings">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignEffectiveSettings" name="GetCampaignEffectiveSettingsRequest" message="tns:GetCampaignEffectiveSettingsRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/GetCampaignEffectiveSettingsResponse" name="GetCampaignEffectiveSettingsResponse" message="tns:GetCampaignEffectiveSettingsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCampaignCustomLog">
+      <wsdl:input wsaw:Action="http://api.eyeblaster.com/ICampaignService/CreateCampaignCustomLog" name="CreateCampaignCustomLogRequest" message="tns:CreateCampaignCustomLogRequest" />
+      <wsdl:output wsaw:Action="http://api.eyeblaster.com/ICampaignService/CreateCampaignCustomLogResponse" message="tns:ICampaignService_CreateCampaignCustomLog_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CampaignService_Binding" type="tns:ICampaignService">
+    <wsp:PolicyReference URI="#CampaignService_Binding_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCampaignsBasicInfo">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaignsBasicInfo" style="document" />
+      <wsdl:input name="GetCampaignsBasicInfoRequest">
+        <soap:header message="tns:GetCampaignsBasicInfoRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCampaignsBasicInfoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaigns">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaigns" style="document" />
+      <wsdl:input name="GetCampaignsRequest">
+        <soap:header message="tns:GetCampaignsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCampaignsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCampaign">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/CreateCampaign" style="document" />
+      <wsdl:input name="CreateCampaignRequest">
+        <soap:header message="tns:CreateCampaignRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateCampaignResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCampaign">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/UpdateCampaign" style="document" />
+      <wsdl:input name="UpdateCampaignRequest">
+        <soap:header message="tns:UpdateCampaignRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateCampaignResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCampaign">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/DeleteCampaign" style="document" />
+      <wsdl:input name="DeleteCampaignRequest">
+        <soap:header message="tns:DeleteCampaignRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DeleteCampaignsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTargetRegionTree">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetTargetRegionTree" style="document" />
+      <wsdl:input name="GetTargetRegionRequest">
+        <soap:header message="tns:GetTargetRegionRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetTargetRegionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnableAutomaticOptimizationOnCampaign">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/EnableAutomaticOptimizationOnCampaign" style="document" />
+      <wsdl:input name="EnableAutomaticOptimizationRequest">
+        <soap:header message="tns:EnableAutomaticOptimizationRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="EnableAutomaticOptimizationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateIOForCampaign">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GenerateIOForCampaign" style="document" />
+      <wsdl:input name="GenerateIOForCampaignRequest">
+        <soap:header message="tns:GenerateIOForCampaignRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GenerateIOForCampaignResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignInteractions">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaignInteractions" style="document" />
+      <wsdl:input name="GetCampaignInteractionsRequest">
+        <soap:header message="tns:GetCampaignInteractionsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCampaignInteractionsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCampaignInteractions">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/UpdateCampaignInteractions" style="document" />
+      <wsdl:input name="UpdateCampaignInteractionsRequest">
+        <soap:header message="tns:UpdateCampaignInteractionsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateCampaignInteractionsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInteractionRelatedAds">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetInteractionRelatedAds" style="document" />
+      <wsdl:input name="GetInteractionRelatedAdsRequest">
+        <soap:header message="tns:GetInteractionRelatedAdsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetInteractionRelatedAdsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdSnaps">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetAdSnaps" style="document" />
+      <wsdl:input name="GetAdSnapRequest">
+        <soap:header message="tns:GetAdSnapRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAdSnapResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitorDelivery">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetMonitorDelivery" style="document" />
+      <wsdl:input name="GetMonitorDeliveryRequest">
+        <soap:header message="tns:GetMonitorDeliveryRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetMonitorDeliveryResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PublishCampaign">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/PublishCampaign" style="document" />
+      <wsdl:input name="PublishCampaignRequest">
+        <soap:header message="tns:PublishCampaignRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PublishCampaignResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignSites">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaignSites" style="document" />
+      <wsdl:input name="GetCampaignSitesRequest">
+        <soap:header message="tns:GetCampaignSitesRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCampaignSitesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateContact">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/CreateContact" style="document" />
+      <wsdl:input name="CreateContactRequest">
+        <soap:header message="tns:CreateContactRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateContactResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContact">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetContact" style="document" />
+      <wsdl:input name="GetContactRequest">
+        <soap:header message="tns:GetContactRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetContactResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgencyContacts">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetAgencyContacts" style="document" />
+      <wsdl:input name="GetAgencyContactsRequest">
+        <soap:header message="tns:GetAgencyContactsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAgencyContactsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreativeShopContacts">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCreativeShopContacts" style="document" />
+      <wsdl:input name="GetCreativeShopRequest">
+        <soap:header message="tns:GetCreativeShopRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCreativeShopResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSiteContacts">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetSiteContacts" style="document" />
+      <wsdl:input name="GetSiteContactsRequest">
+        <soap:header message="tns:GetSiteContactsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetSiteContactsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSiteContacts">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetAllSiteContacts" style="document" />
+      <wsdl:input name="GetCampaignSiteContactsRequest">
+        <soap:header message="tns:GetCampaignSiteContactsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetSiteContactsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMarkets">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetMarkets" style="document" />
+      <wsdl:input name="GetMarketsRequest">
+        <soap:header message="tns:GetMarketsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetMarketsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOffices">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetOffices" style="document" />
+      <wsdl:input name="GetOfficesRequest">
+        <soap:header message="tns:GetOfficesRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetOfficesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSites">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetSites" style="document" />
+      <wsdl:input name="GetSitesRequest">
+        <soap:header message="tns:GetSitesRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetSitesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAgencies">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetAgencies" style="document" />
+      <wsdl:input name="GetAgenciesRequest">
+        <soap:header message="tns:GetAgenciesRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAgenciesResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreativeShops">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCreativeShops" style="document" />
+      <wsdl:input name="GetCreativeShopsRequest">
+        <soap:header message="tns:GetCreativeShopsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCreativeShopsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignHistory">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaignHistory" style="document" />
+      <wsdl:input name="GetCampaignHistoryRequest">
+        <soap:header message="tns:GetCampaignHistoryRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetHistoryResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignHistoryObjects">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaignHistoryObjects" style="document" />
+      <wsdl:input name="GetHistoryObjectsRequest">
+        <soap:header message="tns:GetHistoryObjectsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetHistoryObjectsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignHistoryActions">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaignHistoryActions" style="document" />
+      <wsdl:input name="GetHistoryActionsRequest">
+        <soap:header message="tns:GetHistoryActionsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetHistoryActionsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaignEffectiveSettings">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/GetCampaignEffectiveSettings" style="document" />
+      <wsdl:input name="GetCampaignEffectiveSettingsRequest">
+        <soap:header message="tns:GetCampaignEffectiveSettingsRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCampaignEffectiveSettingsResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCampaignCustomLog">
+      <soap:operation soapAction="http://api.eyeblaster.com/ICampaignService/CreateCampaignCustomLog" style="document" />
+      <wsdl:input name="CreateCampaignCustomLogRequest">
+        <soap:header message="tns:CreateCampaignCustomLogRequest_Headers" part="UserSecurityToken" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CampaignService">
+    <wsdl:port name="CampaignService_Binding" binding="tns:CampaignService_Binding">
+      <soap:address location="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/CampaignService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
