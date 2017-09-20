@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using api.eyeblaster.com.V1.DataContracts;
-using api.eyeblaster.com.V2.DataContracts;
-using api.eyeblaster.com.message;
+using SizmekApiNet.App.AuthenticationService;
+using SizmekApiNet.App.AdvertiserService;
+using SizmekApiNet.App.AnalyticsDataService;
+using SizmekApiNet.App.CampaignService;
 
 namespace SizmekApiNet.App
 {
@@ -18,19 +19,27 @@ namespace SizmekApiNet.App
 
             var advertiserService = new AdvertiserServiceClient();
 
-            var paging = new ListPaging()
+            var paging = new AdvertiserService.ListPaging()
             {
                 PageIndex = 0,
                 PageSize = 99999
             };
 
-            var advertisers = advertiserService.GetAdvertisers(null, paging, true);
+            var paging2 = new CampaignService.ListPaging()
+            {
+                PageIndex = 0,
+                PageSize = 99999
+            };
+
+            var totalCount = 0;
+
+            var advertisers = advertiserService.GetAdvertisers(authToken, null, paging, true, out totalCount);
             
             foreach (var advertiser in advertisers)
             {
                 var campaignService = new CampaignServiceClient();
 
-                var campaigns = campaignService.GetCampaigns(null, paging, true);
+                var campaigns = campaignService.GetCampaigns(authToken, null, paging2, true, out totalCount);
 
 				foreach (var campaign in campaigns)
 				{
@@ -41,25 +50,36 @@ namespace SizmekApiNet.App
                         CampaignID = campaign.ID
 					});
 
-                    var conversionTags = advertiserService.GetConversionTags((uint)advertiser.ID, conversionTagFilters, paging, true);
+                    var conversionTags = advertiserService.GetConversionTags(authToken, (uint)advertiser.ID, conversionTagFilters, paging, true, out totalCount);
 
 					if (conversionTags.Count > 0)
 					{
 						var analyticsDataService = new AnalyticsDataServiceClient();
 						var report = new PerformanceReport();
+                        var reportBase = new ReportBase();
 
                         report.CampaignID = campaign.ID;
-                        report.ReportStartDate = campaign.CampaignExtendedInfo.StartDate;
-                        report.ReporEndtDate = campaign.CampaignExtendedInfo.EndDate;
 
-                        analyticsDataService.InitiateReportJob(report);
+                        report.ReportStartDate = new AnalyticsDataService.APIDateTime();
+                        report.ReportStartDate.Day = campaign.CampaignExtendedInfo.StartDate.Day;
+                        report.ReportStartDate.Month = campaign.CampaignExtendedInfo.StartDate.Month;
+                        report.ReportStartDate.Year = campaign.CampaignExtendedInfo.StartDate.Year;
 
-                        var reportStatus = analyticsDataService.GetReportJobStatus(report);
+                        report.ReporEndtDate = new AnalyticsDataService.APIDateTime();
+                        report.ReporEndtDate.Day = campaign.CampaignExtendedInfo.EndDate.Day;
+                        report.ReporEndtDate.Month = campaign.CampaignExtendedInfo.EndDate.Month;
+                        report.ReporEndtDate.Year = campaign.CampaignExtendedInfo.EndDate.Year;
+
+                        reportBase = report;
+
+                        analyticsDataService.InitiateReportJob(authToken, ref reportBase);
+
+                        var reportStatus = analyticsDataService.GetReportJobStatus(authToken, report);
 
                         while (reportStatus != JobStatus.Completed)
-                            reportStatus = analyticsDataService.GetReportJobStatus(report);
+                            reportStatus = analyticsDataService.GetReportJobStatus(authToken, report);
 
-                        var reportUrl = analyticsDataService.GetReportAsURL(report);
+                        var reportUrl = analyticsDataService.GetReportAsURL(authToken, report);
 					}
 				}
             }

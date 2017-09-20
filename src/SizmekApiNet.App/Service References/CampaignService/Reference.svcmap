@@ -1,26 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="33b9c7f3-aa98-4228-b58d-0b6b4263f07f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="07f86b01-ba08-48b4-b10a-57dd4a3520f2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
-    <GenerateTaskBasedAsynchronousMethod>false</GenerateTaskBasedAsynchronousMethod>
-    <GenerateEventBasedAsynchronousMethods>false</GenerateEventBasedAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
     <GenerateInternalTypes>false</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
     <CollectionMappings>
       <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
-      <CollectionMapping TypeName="System.Collections.Generic.Dictionary`2" Category="Dictionary" />
     </CollectionMappings>
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
     <UseSerializerForFaults>true</UseSerializerForFaults>
     <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/CampaignService.svc" Protocol="https" SourceId="1" />
+    <MetadataSource Address="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/CampaignService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="CampaignService.wsdl" MetadataType="Wsdl" ID="d2d922ec-6a97-4407-8347-444e44dbfa8e" SourceId="1" SourceUrl="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/CampaignService.svc?wsdl" />
+    <MetadataFile FileName="CampaignService.wsdl" MetadataType="Wsdl" ID="384d762c-a4f1-4d55-b354-31b14542c5c8" SourceId="1" SourceUrl="https://platform.mediamind.com/Eyeblaster.MediaMind.API/V2/CampaignService.svc?wsdl" />
   </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
 </ReferenceGroup>
